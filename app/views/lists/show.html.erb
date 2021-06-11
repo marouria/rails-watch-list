@@ -1,3 +1,31 @@
-<h1> Movies that belongs to <%= @list.name %></h1>
+<div class="container">
 
-<%= link_to "Back to the lists", lists_path %>
+  <h1> Movies that belongs to <%= @list.name %></h1>
+  <ul>
+      <% @list.bookmarks.each do |bookmark| %>
+      <li>
+        <div class="card-movie">
+          <img src="<%= bookmark.movie.poster_url %>" />
+          <div class="card-movie-infos">
+            <div>
+              <h2><%= bookmark.movie.title %></h2>
+              <p><%= bookmark.movie.overview %></p>
+            </div>
+            <h2 class="card-movie-rating"><%= bookmark.movie.rating %></h2>
+            <%= link_to bookmark_path(bookmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-remove-link' do %>
+            <i class="fas fa-trash"></i>
+            <% end %>
+          </div>
+        </div>
+
+      <%= bookmark.comment %>
+
+    </li>
+      </li>
+      <% end %>
+  </ul>
+
+  <%= link_to "Add a new movie", new_list_bookmark_path(@list) %>
+  <%= link_to "Back to the lists", lists_path %>
+</div>
+
